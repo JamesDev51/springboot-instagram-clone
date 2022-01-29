@@ -1,6 +1,7 @@
 package com.jamesdev.springbootinstagramclone.controller.api;
 
 import com.jamesdev.springbootinstagramclone.dto.ResponseDto;
+import com.jamesdev.springbootinstagramclone.dto.user.EmailDupCheckDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UsernameDupCheckDto;
 import com.jamesdev.springbootinstagramclone.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,5 +20,10 @@ public class UserApiController {
       public ResponseEntity<?> checkUsernameUsed(UsernameDupCheckDto usernameDupCheckDto){
             if(userService.isUsernameAvailable(usernameDupCheckDto)) return new ResponseEntity<>(new ResponseDto<>("이미 사용중인 아이디입니다."),HttpStatus.CONFLICT);
             else return new ResponseEntity<>(new ResponseDto<>("사용 가능한 아이디입니다. 사용하시겠습니까?"),HttpStatus.OK);
+      }
+      @PostMapping("/auth/api/checkEmailUsed")
+      public ResponseEntity<?> checkEmailUsed(EmailDupCheckDto emailDupCheckDto){
+            if(userService.isEmailAvailable(emailDupCheckDto)) return new ResponseEntity<>(new ResponseDto<>("이미 사용중인 이메일입니다."),HttpStatus.CONFLICT);
+            else return new ResponseEntity<>(new ResponseDto<>("사용 가능한 이메일입니다. 사용하시겠습니까?"),HttpStatus.OK);
       }
 }

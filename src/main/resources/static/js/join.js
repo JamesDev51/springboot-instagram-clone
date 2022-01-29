@@ -130,24 +130,21 @@ function handleEmailDupCheckBtnClick(){
         contentType:"application/json;charset=utf-8",
         dataType:"json"
     }).done(function (res){
-        let resData=res.data;
-        if(resData===1){
-            //존재하지 않는 회원 -> 사용가능한 이메일
-            if(confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")){
-                $("#email").attr("readonly",true);
-                emailDupCheckBtn.removeEventListener("click",handleEmailDupCheckBtnClick);
-                signUpEmailChecked.value="true";
-            }else{
-                signUpEmail.value="";
-                signUpEmail.focus();
-            }
+        //존재하지 않는 회원 -> 사용가능한 이메일
+        if(confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")){
+            $("#email").attr("readonly",true);
+            emailDupCheckBtn.removeEventListener("click",handleEmailDupCheckBtnClick);
+            emailDupCheckBtn.disabled = true;
+            signUpEmailChecked.value="true";
         }else{
-            alert("이미 등록된 이메일입니다.")
-            signUpEmail.value=""
-            signUpEmail.focus()
+            signUpEmail.value="";
+            signUpEmail.focus();
         }
     }).fail(function (e){
-        console.log(e);
+        console.log("에러 : ",e);
+        alert("이미 등록된 이메일입니다.")
+        signUpEmail.value=""
+        signUpEmail.focus()
     })
 }
 //아이디 유효성 검사, 중복 체크
@@ -173,11 +170,13 @@ function handleUsernameDupCheckBtnClick(){
         contentType:"application/json;charset=utf-8",
         dataType:"json"
     }).done(function (res){
-        //존재하지 않는 회원 -> 사용가능한 이메일
+        //존재하지 않는 회원 -> 사용가능한 유저네임
         if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
             $("#username").attr("readonly",true);
             usernameDupCheckBtn.removeEventListener("click",handleUsernameDupCheckBtnClick);
+            usernameDupCheckBtn.disabled = true;
             signUpUsernameChecked.value="true";
+
         }else{
             signUpUsername.value="";
             signUpUsername.focus();
@@ -190,11 +189,6 @@ function handleUsernameDupCheckBtnClick(){
     })
 
 }
-
-
-
-
-
 
 
 //회원 가입버튼을 눌렀을 때 실행

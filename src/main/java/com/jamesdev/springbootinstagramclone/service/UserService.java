@@ -2,6 +2,7 @@ package com.jamesdev.springbootinstagramclone.service;
 
 import com.jamesdev.springbootinstagramclone.domain.user.User;
 import com.jamesdev.springbootinstagramclone.domain.user.UserRepository;
+import com.jamesdev.springbootinstagramclone.dto.user.EmailDupCheckDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UsernameDupCheckDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,8 @@ public class UserService {
             return userRepository.findByUsername(username).isPresent();
       }
 
+      public boolean isEmailAvailable(EmailDupCheckDto emailDupCheckDto) {
+            String email= emailDupCheckDto.getEmail();
+            return userRepository.findByUsername(email).isPresent();
+      }
 }
