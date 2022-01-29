@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class testController {
 
-      @GetMapping("/join")
-      public String test(){
-            return "auth/join";
-      }
       @GetMapping("/loginn")
       public String test2(){
             return "auth/login";
