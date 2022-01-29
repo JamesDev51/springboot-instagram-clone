@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsernameDupCheckDto {
-      public String username;
+      private String username;
 }

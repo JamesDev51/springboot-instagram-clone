@@ -173,25 +173,20 @@ function handleUsernameDupCheckBtnClick(){
         contentType:"application/json;charset=utf-8",
         dataType:"json"
     }).done(function (res){
-        let resData=res.data;
-        if(resData===1){
-            //존재하지 않는 회원 -> 사용가능한 이메일
-            if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
-                $("#username").attr("readonly",true);
-                usernameDupCheckBtn.removeEventListener("click",handleUsernameDupCheckBtnClick);
-                signUpUsernameChecked.value="true";
-            }else{
-                signUpUsername.value="";
-                signUpUsername.focus();
-            }
-
+        //존재하지 않는 회원 -> 사용가능한 이메일
+        if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
+            $("#username").attr("readonly",true);
+            usernameDupCheckBtn.removeEventListener("click",handleUsernameDupCheckBtnClick);
+            signUpUsernameChecked.value="true";
         }else{
-            alert("이미 사용중인 아이디입니다.")
-            signUpUsername.value=""
-            signUpUsername.focus()
+            signUpUsername.value="";
+            signUpUsername.focus();
         }
     }).fail(function (e){
-        console.log(e);
+        console.log("에러 : ",e)
+        alert("이미 사용중인 아이디입니다.")
+        signUpUsername.value=""
+        signUpUsername.focus()
     })
 
 }
