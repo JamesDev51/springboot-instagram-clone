@@ -26,5 +26,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                         .antMatchers("/","/user/**","/post/**","/comment/**","/api/**").authenticated()
                         .anyRequest().permitAll();
 
+            //TODO: form 로그인 방식 ->  jwt 로그인 방식
+            http
+                        .formLogin()
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/login");
+
       }
 }

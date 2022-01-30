@@ -130,6 +130,7 @@ function handleEmailDupCheckBtnClick(){
         dataType:"json"
     }).done(function (res){
         //존재하지 않는 회원 -> 사용가능한 이메일
+        console.log(res)
         if(confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")){
             $("#email").attr("readonly",true);
             emailDupCheckBtn.removeEventListener("click",handleEmailDupCheckBtnClick);
@@ -170,6 +171,7 @@ function handleUsernameDupCheckBtnClick(){
         dataType:"json"
     }).done(function (res){
         //존재하지 않는 회원 -> 사용가능한 유저네임
+        console.log(res)
         if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")){
             $("#username").attr("readonly",true);
             usernameDupCheckBtn.removeEventListener("click",handleUsernameDupCheckBtnClick);
