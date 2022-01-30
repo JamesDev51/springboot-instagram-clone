@@ -17,15 +17,26 @@
                                                 <!--로고end-->
 
                                                 <!--회원가입 인풋-->
-                                                <form class="login__input" action="/auth/signup" method="post">
-                                                        <input type="text" name="username" placeholder="아이디" required="required" />
-                                                        <input type="password" name="password" placeholder="비밀번호" required="required" />
-                                                        <input type="password" name="password2" placeholder="비밀번호 재입력" required="required" />
+                                                <form class="login__input">
+                                                        <input type="text" name="username" placeholder="아이디" required="required" style="margin-bottom:0px;" id="username"/>
+                                                        <input type="hidden" value="false" id="usernameChecked">
+                                                        <button
+                                                                type="button"
+                                                                id="usernameDupCheckBtn"
+                                                                class="btn"
+                                                                data-mdb-ripple-color="dark"
+                                                                style="margin-top:0px; margin-bottom: 15px"
+                                                        >
+                                                                아이디 중복확인
+                                                        </button>
+                                                        <input type="password" name="password1" placeholder="비밀번호" required="required" id="password1"/>
+                                                        <input type="password" name="password2" placeholder="비밀번호 재입력" required="required" id="password2"/>
                                                         <div class="input-container">
-                                                                <input type="email" name="email" placeholder="이메일" required="required" style="margin-bottom:0px;"/>
+                                                                <input type="email" name="email" placeholder="이메일" required="required" style="margin-bottom:0px;" id="email"/>
+                                                                <input type="hidden" value="false" id="emailChecked">
                                                                 <button
                                                                         type="button"
-                                                                        id="duplicationCheckBtn"
+                                                                        id="emailDupCheckBtn"
                                                                         class="btn"
                                                                         data-mdb-ripple-color="dark"
                                                                         style="margin-top:0px; margin-bottom: 15px"
@@ -33,8 +44,8 @@
                                                                         이메일 중복확인
                                                                 </button>
                                                         </div>
-                                                        <input type="text" name="name" placeholder="이름" required="required" />
-                                                        <button>가입</button>
+                                                        <input type="text" name="name" placeholder="이름" required="required" id="name" />
+                                                        <button id="signupBtn" type="button">가입</button>
                                                 </form>
                                                 <!--회원가입 인풋end-->
                                         </div>
@@ -51,5 +62,6 @@
                         </section>
                 </main>
         </div>
+        <script src="/js/join.js"></script>
 </div>
 </html>
