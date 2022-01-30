@@ -1,5 +1,6 @@
 package com.jamesdev.springbootinstagramclone.service;
 
+import com.jamesdev.springbootinstagramclone.domain.user.RoleType;
 import com.jamesdev.springbootinstagramclone.domain.user.User;
 import com.jamesdev.springbootinstagramclone.domain.user.UserRepository;
 import com.jamesdev.springbootinstagramclone.dto.auth.EmailDupCheckDto;
@@ -33,11 +34,12 @@ public class UserService {
       }
 
       public boolean signUp(JoinDto joinDto){
-            System.out.println("joinDto : "+joinDto);
+            //TODO: 권한설정 (USER, ADMIN) 지금은 그냥 USER
             if (!isPasswordEqual(joinDto)) return false;
             String rawPassword=joinDto.getPassword1();
             String encPassword = bCryptPasswordEncoder.encode(rawPassword);
             User newUser=joinDto.toEntity(encPassword);
+            newUser.setRole(RoleType.USER);
             userRepository.save(newUser);
             return true;
 
