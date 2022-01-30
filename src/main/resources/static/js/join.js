@@ -97,13 +97,12 @@ function handleSignUpBtnClick(){
         contentType: "application/json;charset=utf-8",
         dataType: "json"
     }).done(function(res){
-        if(res.status===500){
-            alert("회원가입에 실패하였습니다.")
-        }else{
-            alert("회원가입에 성공하였습니다. 반갑습니다.")
-            location.href="/";
-        }
+        console.log(res)
+        alert("회원가입에 성공하였습니다. 반갑습니다.")
+        location.href="/login";
     }).fail(function (e){
+        console.log("에러 : ",e)
+        alert("회원가입에 실패하였습니다.")
         alert(JSON.stringify(e));
     })
 }

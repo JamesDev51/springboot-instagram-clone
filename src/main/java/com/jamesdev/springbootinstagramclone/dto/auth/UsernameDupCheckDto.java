@@ -1,4 +1,4 @@
-package com.jamesdev.springbootinstagramclone.dto.user;
+package com.jamesdev.springbootinstagramclone.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmailDupCheckDto {
-      private String email;
+public class UsernameDupCheckDto {
+      private String username;
 }
