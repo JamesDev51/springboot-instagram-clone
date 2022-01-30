@@ -41,6 +41,9 @@ public class PrincipalDetails implements UserDetails {
             return user.getUsername();
       }
 
+      public Integer getId(){
+            return user.getId();
+      }
       public String getName(){
             return user.getName();
       }

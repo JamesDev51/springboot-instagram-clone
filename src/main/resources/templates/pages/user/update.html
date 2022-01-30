@@ -22,7 +22,8 @@
                                 <!--프로필셋팅 아이디영역end-->
 
                                 <!--프로필 수정-->
-                                <form id="profileUpdate">
+                                <input type="hidden" th:value="${principal.getId()}" id="userId"/>
+                                <form id="profileUpdate" onsubmit="update(event)">
                                         <div class="content-item__02">
                                                 <div class="item__title">이름</div>
                                                 <div class="item__input">
@@ -84,6 +85,6 @@
                         </article>
                 </section>
         </div>
-
+        <script src="/js/update.js"></script>
 </div>
 </html>

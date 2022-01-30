@@ -21,7 +21,6 @@ public class UserController {
 
       @GetMapping("/user/update")
       public String update(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model){
-            System.out.println("principal : "+principalDetails);
             model.addAttribute("principal",principalDetails);
             return "user/update";
       }
