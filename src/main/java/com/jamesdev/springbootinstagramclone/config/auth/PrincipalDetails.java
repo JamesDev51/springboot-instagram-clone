@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @NoArgsConstructor
-@Getter
+@Data
 public class PrincipalDetails implements UserDetails {
 
       private User user;
@@ -21,6 +21,7 @@ public class PrincipalDetails implements UserDetails {
       public PrincipalDetails(User user){
             this.user=user;
       }
+
 
       //TODO:
       @Override
@@ -38,6 +39,34 @@ public class PrincipalDetails implements UserDetails {
       @Override
       public String getUsername() {
             return user.getUsername();
+      }
+
+      public Integer getId(){
+            return user.getId();
+      }
+      public String getName(){
+            return user.getName();
+      }
+      public String getEmail(){
+            return user.getEmail();
+      }
+      public String getWebsite(){
+            return user.getWebsite();
+      }
+      public String getBio(){
+            return user.getBio();
+      }
+      public String getGender(){
+            return user.getGender().toString();
+      }
+      public String getRole(){
+            return user.getRole().toString();
+      }
+      public String getPhone(){
+            return user.getBio();
+      }
+      public String getProfileImageUrl(){
+            return user.getProfileImageUrl();
       }
 
       @Override
