@@ -25,7 +25,7 @@ public class UserService {
 
       public boolean isEmailAvailable(EmailDupCheckDto emailDupCheckDto) {
             String email= emailDupCheckDto.getEmail();
-            return userRepository.findByUsername(email).isPresent();
+            return userRepository.findByEmail(email).isPresent();
       }
 
       private boolean isPasswordEqual(JoinDto joinDto){
