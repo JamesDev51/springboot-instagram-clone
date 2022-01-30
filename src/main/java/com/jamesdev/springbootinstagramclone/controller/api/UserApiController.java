@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -31,7 +33,10 @@ public class UserApiController {
             else return new ResponseEntity<>(new ResponseDto<>("사용 가능한 이메일입니다. 사용하시겠습니까?"),HttpStatus.OK);
       }
       @PostMapping("/auth/api/join")
-      public ResponseEntity<?> join(@RequestBody JoinDto joinDto){
+      public ResponseEntity<?> join(
+                  @Validated @RequestBody JoinDto joinDto,
+                  BindingResult bindingResult
+                                    ){
             if(userService.signUp(joinDto)) return new ResponseEntity<>(new ResponseDto<>("회원가입이 완료되었습니다."),HttpStatus.CREATED);
             return new ResponseEntity<>(new ResponseDto<>("회원가입에 실패하였습니다."),HttpStatus.BAD_REQUEST);
       }
