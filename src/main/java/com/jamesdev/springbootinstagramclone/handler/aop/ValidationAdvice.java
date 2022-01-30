@@ -1,5 +1,6 @@
 package com.jamesdev.springbootinstagramclone.handler.aop;
 
+import com.jamesdev.springbootinstagramclone.handler.ex.CustomValidationApiException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,10 +29,10 @@ public class ValidationAdvice {
                               for(FieldError fieldError:bindingResult.getFieldErrors()){
                                     errorMap.put(fieldError.getField(),fieldError.getDefaultMessage());
                               }
-                              throw new Exception();
+                              throw new CustomValidationApiException("유효성 검사 실패",errorMap);
                         }
                   }
             }
-            return null;
+            return pj.proceed();
       }
 }
