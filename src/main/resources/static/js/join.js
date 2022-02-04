@@ -184,9 +184,15 @@ function handleUsernameDupCheckBtnClick(){
         }
     }).fail(function (e){
         console.log("에러 : ",e)
-        alert("이미 사용중인 아이디입니다.")
-        signUpUsername.value=""
+        let data=e.responseJSON.data
+        if(e.status===400){
+            alert(data.username)
+        }
+        else{
+            alert(data)
+        }
         signUpUsername.focus()
+
     })
 
 }
