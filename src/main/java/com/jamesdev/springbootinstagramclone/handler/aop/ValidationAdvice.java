@@ -21,7 +21,6 @@ public class ValidationAdvice {
             Object[] args=pj.getArgs();
             for (Object arg : args) {
                   if(arg instanceof BindingResult){
-                        System.out.println("유효성 검사가 적용");
                         BindingResult bindingResult= (BindingResult) arg;
                         if(bindingResult.hasErrors()){
                               //custom Error 만들어서 errormap 던지기
@@ -29,6 +28,7 @@ public class ValidationAdvice {
                               for(FieldError fieldError:bindingResult.getFieldErrors()){
                                     errorMap.put(fieldError.getField(),fieldError.getDefaultMessage());
                               }
+                              System.out.println("errorMap : "+errorMap);
                               throw new CustomValidationApiException("유효성 검사 실패",errorMap);
                         }
                   }

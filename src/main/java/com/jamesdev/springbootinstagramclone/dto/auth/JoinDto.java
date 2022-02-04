@@ -19,15 +19,15 @@ public class JoinDto {
 
       //TODO : VALIDATION CHECK
       @NotBlank(message="아이디는 필수 입력 값입니다.")
-      @Pattern(regexp = "/^[a-z]+[a-z0-9]{5,19}$/g",message="아이디는 6~20자의 영문자로 시작하는 영문자 또는 숫자로만 입력 가능합니다.")
+      @Pattern(regexp = "^[a-z]+[a-z0-9]{5,19}$",message="아이디는 6~20자의 영문자로 시작하는 영문자 또는 숫자로만 입력 가능합니다.")
       private String username;
 
       @NotBlank(message="비밀번호는 필수 입력 값입니다.")
-      @Pattern(regexp="/^[a-zA-Z0-9]{4,12}$/",message ="비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력 가능합니다.")
+      @Pattern(regexp="^[a-zA-Z0-9]{4,12}$",message ="비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력 가능합니다.")
       private String password1;
 
       @NotBlank(message="확인 비밀번호는 필수 입력 값입니다.")
-      @Pattern(regexp="/^[a-zA-Z0-9]{4,12}$/",message ="비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력 가능합니다.")
+      @Pattern(regexp="^[a-zA-Z0-9]{4,12}$",message ="비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력 가능합니다.")
       private String password2;
 
       @NotBlank(message="이메일은 필수 입력 값입니다.")
