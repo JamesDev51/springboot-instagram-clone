@@ -47,6 +47,6 @@ spring:
       name: test
       password: 1234
 
-#file:
-#  path: C:/Users/alstj/workspace/photogram/upload/
-#
+file:
+  path: C:/Users/alstj/workspace/photogram/upload/
+

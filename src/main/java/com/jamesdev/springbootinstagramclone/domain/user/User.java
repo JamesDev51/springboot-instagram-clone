@@ -1,5 +1,7 @@
 package com.jamesdev.springbootinstagramclone.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jamesdev.springbootinstagramclone.domain.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,7 @@ import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -45,10 +48,30 @@ public class User {
 
       private LocalDateTime createTime;
 
+      @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+      @JsonIgnoreProperties({"user"})
+      private List<Image> images;
+
       @PrePersist
       public void createDate(){
             this.createTime= LocalDateTime.now();
       }
 
-
+      @Override
+      public String toString() {
+            return "User{" +
+                        "id=" + id +
+                        ", username='" + username + '\'' +
+                        ", email='" + email + '\'' +
+                        ", password='" + password + '\'' +
+                        ", name='" + name + '\'' +
+                        ", website='" + website + '\'' +
+                        ", bio='" + bio + '\'' +
+                        ", phone='" + phone + '\'' +
+                        ", profileImageUrl='" + profileImageUrl + '\'' +
+                        ", gender=" + gender +
+                        ", role=" + role +
+                        ", createTime=" + createTime +
+                        '}';
+      }
 }

@@ -15,9 +15,16 @@
                                 <li class="navi-item"><a href="/image/popular">
                                         <i class="far fa-compass"></i>
                                 </a></li>
-                                <li class="navi-item"><a href="/user/${principal.user.id}">
-                                        <i class="far fa-user"></i>
-                                </a></li>
+                                <td sec:authorize="isAuthenticated()">
+                                        <li class="navi-item"><a  th:href="@{/user/{userId}(userId=${#authentication.principal.user.id})}">
+                                                <i class="far fa-user"></i>
+                                        </a></li>
+                                </td>
+                                <td sec:authorize="isAnonymous()">
+                                        <li class="navi-item"><a  th:href="@{/login}">
+                                                <i class="far fa-user"></i>
+                                        </a></li>
+                                </td>
                         </ul>
                 </nav>
         </div>
