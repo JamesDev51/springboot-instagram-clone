@@ -14,4 +14,9 @@ public class UserController {
             model.addAttribute("principal",principalDetails);
             return "user/update";
       }
+      @GetMapping("/user/{pageUserId}")
+      public String profile(@PathVariable int pageUserId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//            UserPorifleDto
+            return null;
+      }
 }
