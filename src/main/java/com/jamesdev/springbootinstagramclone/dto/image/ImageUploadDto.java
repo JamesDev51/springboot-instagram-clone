@@ -14,7 +14,7 @@ public class ImageUploadDto {
       public Image toEntity(String postImageUrl, User user){
             return Image.builder()
                         .caption(caption)
-                        .postImageUrl(postImageUrl)
+                        .postImageUrl("/upload/"+postImageUrl)
                         .user(user)
                         .build();
       }

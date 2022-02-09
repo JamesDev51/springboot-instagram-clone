@@ -1,12 +1,15 @@
 package com.jamesdev.springbootinstagramclone.service;
 
+import com.jamesdev.springbootinstagramclone.domain.subscribe.SubscribeRepository;
 import com.jamesdev.springbootinstagramclone.domain.user.RoleType;
 import com.jamesdev.springbootinstagramclone.domain.user.User;
 import com.jamesdev.springbootinstagramclone.domain.user.UserRepository;
 import com.jamesdev.springbootinstagramclone.dto.auth.EmailDupCheckDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.JoinDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.UsernameDupCheckDto;
+import com.jamesdev.springbootinstagramclone.dto.user.UserProfileDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UserUpdateDto;
+import com.jamesdev.springbootinstagramclone.handler.ex.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +23,7 @@ import java.util.Objects;
 public class UserService {
 
       private final UserRepository userRepository;
+      private final SubscribeRepository subscribeRepository;
       private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
       @Transactional(readOnly = true)
@@ -51,7 +55,6 @@ public class UserService {
 
       }
 
-
       @Transactional
       public User editUser(int id, UserUpdateDto userUpdateDto) {
             User userEntity = userRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("찾을 수 없음"));
@@ -65,5 +68,28 @@ public class UserService {
             userEntity.setWebsite(userUpdateDto.getWebsite());
             userEntity.setPhone(userUpdateDto.getPhone());
             return userEntity;
+      }
+
+      @Transactional(readOnly = true)
+      public UserProfileDto getUserProfile(int pageUserId,int principalId){
+            UserProfileDto userProfileDto = new UserProfileDto();
+            User userEntity = userRepository.findById(pageUserId).orElseThrow(()->{
+                  throw new CustomException("해당 프로필 페이지는 없는 페이지입니다.");
+            });
+            userProfileDto.setUser(userEntity);
+            userProfileDto.setPageOwnerState(pageUserId==principalId);
+            userProfileDto.setImageCount(userEntity.getImages().size());
+
+            int subscribeState = subscribeRepository.subscribeState(principalId,pageUserId);
+            int subscribeCount=subscribeRepository.subscribeCount(pageUserId);
+
+            userProfileDto.setSubscribeState(subscribeState==1);
+            userProfileDto.setSubscribeCount(subscribeCount);
+
+            //이미지 좋아요
+//            userEntity.getImages().forEach((image)->{
+//                  image.setLikeCount
+//            })
+            return userProfileDto;
       }
 }

@@ -23,7 +23,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                         .csrf().disable();
             http
                         .authorizeRequests()
-                        .antMatchers("/","/user/**","/post/**","/comment/**","/api/**").authenticated()
+                        .antMatchers("/","/user/**","/image/**","/comment/**","/api/**").authenticated()
                         .anyRequest().permitAll();
 
             //TODO: form 로그인 방식 ->  jwt 로그인 방식

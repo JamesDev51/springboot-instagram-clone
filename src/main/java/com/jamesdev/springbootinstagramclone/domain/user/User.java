@@ -57,5 +57,21 @@ public class User {
             this.createTime= LocalDateTime.now();
       }
 
-
+      @Override
+      public String toString() {
+            return "User{" +
+                        "id=" + id +
+                        ", username='" + username + '\'' +
+                        ", email='" + email + '\'' +
+                        ", password='" + password + '\'' +
+                        ", name='" + name + '\'' +
+                        ", website='" + website + '\'' +
+                        ", bio='" + bio + '\'' +
+                        ", phone='" + phone + '\'' +
+                        ", profileImageUrl='" + profileImageUrl + '\'' +
+                        ", gender=" + gender +
+                        ", role=" + role +
+                        ", createTime=" + createTime +
+                        '}';
+      }
 }
