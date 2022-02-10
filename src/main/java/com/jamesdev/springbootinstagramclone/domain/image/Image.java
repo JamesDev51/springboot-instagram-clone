@@ -2,6 +2,7 @@ package com.jamesdev.springbootinstagramclone.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jamesdev.springbootinstagramclone.domain.likes.Likes;
 import com.jamesdev.springbootinstagramclone.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +32,10 @@ public class Image {
       private User user;
 
       //이미지 좋아요
+      @JsonIgnoreProperties({"image"})
+      @OneToMany(mappedBy = "image")
+      private List<Likes> likes;
+
       //이미지 댓글
 
 }
