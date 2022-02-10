@@ -6,7 +6,9 @@ import com.jamesdev.springbootinstagramclone.dto.ResponseDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.EmailDupCheckDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.JoinDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.UsernameDupCheckDto;
+import com.jamesdev.springbootinstagramclone.dto.subscribe.SubscribeDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UserUpdateDto;
+import com.jamesdev.springbootinstagramclone.service.SubscribeService;
 import com.jamesdev.springbootinstagramclone.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class UserApiController {
 
       private final UserService userService;
+      private final SubscribeService subscribeService;
 
       @PostMapping("/auth/api/checkUsernameUsed")
       public ResponseEntity<?> checkUsernameUsed(@Validated @RequestBody UsernameDupCheckDto usernameDupCheckDto,BindingResult bindingResult){
@@ -58,6 +63,12 @@ public class UserApiController {
       public ResponseEntity<?> updateProfileImage(@PathVariable int principalId, MultipartFile profileImageFile){
             User userEntity = userService.updateProfileImage(principalId,profileImageFile);
             return new ResponseEntity<>(new ResponseDto<>(userEntity),HttpStatus.OK);
+      }
+
+      @GetMapping("/api/user/{pageUserId}/subscribe")
+      public ResponseEntity<?> getSubscribeList(@PathVariable int pageUserId,@AuthenticationPrincipal PrincipalDetails principalDetails){
+            List<SubscribeDto> subscribeDtoList = subscribeService.getSubscribeList(principalDetails.getId(),pageUserId);
+            return new ResponseEntity<>(new ResponseDto<>(subscribeDtoList),HttpStatus.OK);
       }
 
 }

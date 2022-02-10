@@ -11,23 +11,76 @@
  */
 
 // (1) 유저 프로파일 페이지 구독하기, 구독취소
-function toggleSubscribe(obj) {
+function toggleSubscribe(toUserId,obj) {
     if ($(obj).text() === "구독취소") {
-        $(obj).text("구독하기");
-        $(obj).toggleClass("blue");
+        $.ajax({
+            type:"delete",
+            url:"/api/subscribe/"+toUserId,
+            dateType:"json"
+        }).done(res=>{
+            $(obj).text("구독하기");
+            $(obj).toggleClass("blue");
+        }).fail(error=>{
+            console.log("구독취소 실패 : ",error)
+        })
+
+
     } else {
-        $(obj).text("구독취소");
-        $(obj).toggleClass("blue");
+
+        $.ajax({
+            type:"post",
+            url:"/api/subscribe/"+toUserId,
+            dateType:"json"
+        }).done(res=>{
+            $(obj).text("구독취소");
+            $(obj).toggleClass("blue");
+        }).fail(error=>{
+            console.log("구독하기 실패 : ",error)
+        })
+
+
     }
 }
 
 // (2) 구독자 정보  모달 보기
-function subscribeInfoModalOpen() {
+function subscribeInfoModalOpen(pageUserId) {
     $(".modal-subscribe").css("display", "flex");
+
+    $.ajax({
+        url:`/api/user/${pageUserId}/subscribe`,
+        dateType:"json"
+    }).done(res=>{
+        console.log(res)
+        res.data.forEach((u)=>{
+            let item = getSubscribeModalItem(u);
+            console.log(item)
+            $(".subscribe-list").append(item)
+        })
+    }).fail(error=>{
+        console.log("구독 정보 불러오기 오류 : ",error)
+    });
+
 }
 
-function getSubscribeModalItem() {
-
+function getSubscribeModalItem(u) {
+    let item=`<div class="subscribe__item" id="subscribeModalItem-${u.id}">
+\t<div class="subscribe__img">
+\t\t<img src="/upload/${u.profileImageUrl}" onerror="this.src='/images/person.jpeg'"/>
+\t</div>
+\t<div class="subscribe__text">
+\t\t<h2>${u.username}</h2>
+\t</div>
+\t<div class="subscribe__btn">`;
+    if(!u.equalUserState){ //동일 유저가 아닐 때 버튼이 만들어져야 함
+        if(u.subscribeState){ //구독한 상태
+            item+=`<button class="cta blue" onclick="toggleSubscribe(${u.id},this)">구독취소</button>`
+        }else{ //구독 안한 상태
+            item+=`<button class="cta" onclick="toggleSubscribe(${u.id},this)">구독하기</button>`
+        }
+    }
+    item+=`</div>
+</div>`
+    return item
 }
 
 

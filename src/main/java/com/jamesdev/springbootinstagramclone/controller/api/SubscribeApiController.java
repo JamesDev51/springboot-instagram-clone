@@ -24,7 +24,7 @@ public class SubscribeApiController {
             int fromUserId=principalDetails.getId();
             System.out.println("toUserId : "+toUserId);
             System.out.println("fromUserId : "+fromUserId);
-            subscribeService.subscribe(toUserId,fromUserId);
+            subscribeService.subscribe(fromUserId,toUserId);
             return null;
       }
 
