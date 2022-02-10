@@ -9,14 +9,22 @@ import com.jamesdev.springbootinstagramclone.dto.auth.JoinDto;
 import com.jamesdev.springbootinstagramclone.dto.auth.UsernameDupCheckDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UserProfileDto;
 import com.jamesdev.springbootinstagramclone.dto.user.UserUpdateDto;
+import com.jamesdev.springbootinstagramclone.handler.ex.CustomApiException;
 import com.jamesdev.springbootinstagramclone.handler.ex.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +33,9 @@ public class UserService {
       private final UserRepository userRepository;
       private final SubscribeRepository subscribeRepository;
       private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+      @Value("${file.path}")
+      private String uploadFolder;
 
       @Transactional(readOnly = true)
       public boolean isUsernameAvailable(UsernameDupCheckDto usernameDupCheckDto){
@@ -92,4 +103,25 @@ public class UserService {
 //            })
             return userProfileDto;
       }
+
+      @Transactional
+      public User updateProfileImage(int principalId, MultipartFile profileImageFile){
+            UUID uuid = UUID.randomUUID();
+            String imageFileName=uuid+"_"+profileImageFile.getOriginalFilename();
+            System.out.println("이미지 파일 이름 " + imageFileName );
+
+            Path imageFilePath = Paths.get(uploadFolder+imageFileName);
+
+            try {
+                  Files.write(imageFilePath,profileImageFile.getBytes());
+            } catch (IOException e) {
+                  e.printStackTrace();
+            }
+            User userEntity = userRepository.findById(principalId).orElseThrow(()->{
+                  throw new CustomApiException("유저를 찾을 수 없습니다.");
+            });
+            userEntity.setProfileImageUrl(imageFileName);
+            return userEntity;
+      }
+
 }

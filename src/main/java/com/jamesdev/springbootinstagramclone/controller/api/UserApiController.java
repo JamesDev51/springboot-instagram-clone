@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @RestController
@@ -50,6 +51,12 @@ public class UserApiController {
             int userId= principalDetails.getId();
             User userEntity = userService.editUser(userId,userUpdateDto);
             principalDetails.setUser(userEntity);
+            return new ResponseEntity<>(new ResponseDto<>(userEntity),HttpStatus.OK);
+      }
+
+      @PutMapping("/api/user/{principalId}/profileImageUrl")
+      public ResponseEntity<?> updateProfileImage(@PathVariable int principalId, MultipartFile profileImageFile){
+            User userEntity = userService.updateProfileImage(principalId,profileImageFile);
             return new ResponseEntity<>(new ResponseDto<>(userEntity),HttpStatus.OK);
       }
 

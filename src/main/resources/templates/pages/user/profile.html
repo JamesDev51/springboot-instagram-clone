@@ -18,7 +18,7 @@
                                                        id="userProfileImageInput"/>
                                         </form>
 
-                                        <img class="profile-image"  id="userProfileImage"/>
+                                        <img class="profile-image"  th:src="@{/upload/{profileImageUrl}(profileImageUrl=${dto.user.profileImageUrl})}"   id="userProfileImage"/>
                                 </div>
                         </div>
                         <!--유저이미지end-->
@@ -102,7 +102,7 @@
         <div class="modal-image" onclick="modalImage()">
                 <div class="modal">
                         <p>프로필 사진 바꾸기</p>
-                        <button onclick="profileImageUpload()">사진 업로드</button>
+                        <button  th:onclick="'profileImageUpload('+${dto.user.id}+','+${#authentication.principal.user.id}+')'">사진 업로드</button>
                         <button onclick="closePopup('.modal-image')">취소</button>
                 </div>
         </div>
