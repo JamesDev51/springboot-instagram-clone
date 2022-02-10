@@ -7,6 +7,8 @@ import com.jamesdev.springbootinstagramclone.domain.user.User;
 import com.jamesdev.springbootinstagramclone.dto.image.ImageUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,21 @@ public class ImageService {
       @Value("${file.path}")
       private String uploadFolder;
 
+      @Transactional(readOnly = true)
+      public Page<Image> getStory(int principalId, Pageable pageable){
+            Page<Image> images = imageRepository.story(principalId, pageable);
+            images.forEach((image)->{
+                  image.setLikeCount(image.getLikes().size());
+                  image.getLikes().forEach((like)->{
+                        if(like.getUser().getId()== principalId){
+                              image.setLikeState(true);
+                        }
+                  });
+            });
+            return images;
+      }
+
+
       @Transactional
       public void uploadImage(ImageUploadDto imageUploadDto, PrincipalDetails principalDetails){
 
@@ -42,7 +59,6 @@ public class ImageService {
                   e.printStackTrace();
             }
             Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
-//            System.out.println("image : "+image);
             imageRepository.save(image);
       }
 

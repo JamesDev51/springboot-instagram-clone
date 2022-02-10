@@ -16,6 +16,11 @@ public class ImageController {
 
       private final ImageService imageService;
 
+      @GetMapping({"/","image/story"})
+      public String story(){
+            return "image/story";
+      }
+
       @GetMapping("/image/upload")
       public String upload(){
             return "image/upload";

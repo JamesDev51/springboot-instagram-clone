@@ -54,4 +54,8 @@ public class SubscribeService {
       }
 
 
+      @Transactional
+      public void unsubscribe(int fromUserId, int toUserId) {
+            subscribeRepository.unsubscribe(fromUserId,toUserId);
+      }
 }

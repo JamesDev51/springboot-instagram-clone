@@ -36,6 +36,12 @@ public class Image {
       @OneToMany(mappedBy = "image")
       private List<Likes> likes;
 
+      @Transient
+      private int likeCount;
+
+      @Transient
+      private boolean likeState;
+
       //이미지 댓글
 
 }
