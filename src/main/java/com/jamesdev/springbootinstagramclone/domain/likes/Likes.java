@@ -16,6 +16,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(
+            uniqueConstraints = {
+                        @UniqueConstraint(
+                                    name="likes_uk",
+                                    columnNames = {"imageId","userId"}
+                        )
+            }
+)
 public class Likes {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
