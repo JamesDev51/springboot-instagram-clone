@@ -2,6 +2,7 @@ package com.jamesdev.springbootinstagramclone.domain.image;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jamesdev.springbootinstagramclone.domain.comment.Comment;
 import com.jamesdev.springbootinstagramclone.domain.likes.Likes;
 import com.jamesdev.springbootinstagramclone.domain.user.User;
 import lombok.AllArgsConstructor;
@@ -44,4 +45,8 @@ public class Image {
 
       //이미지 댓글
 
+      @OrderBy("id DESC")
+      @JsonIgnoreProperties("image")
+      @OneToMany(mappedBy = "image")
+      private List<Comment> comments;
 }
