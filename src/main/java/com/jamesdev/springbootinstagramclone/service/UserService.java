@@ -98,9 +98,9 @@ public class UserService {
             userProfileDto.setSubscribeCount(subscribeCount);
 
             //이미지 좋아요
-//            userEntity.getImages().forEach((image)->{
-//                  image.setLikeCount
-//            })
+            userEntity.getImages().forEach((image)->{
+                  image.setLikeCount(image.getLikes().size());
+            });
             return userProfileDto;
       }
 
