@@ -31,4 +31,9 @@ public class CommentService {
             comment.setImage(image);
             return commentRepository.save(comment);
       }
+
+      @Transactional
+      public void deleteComment(int commentId){
+            commentRepository.deleteById(commentId);
+      }
 }

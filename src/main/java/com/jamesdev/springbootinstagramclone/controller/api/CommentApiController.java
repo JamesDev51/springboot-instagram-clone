@@ -25,6 +25,14 @@ public class CommentApiController {
             Comment comment = commentService.writeComment(commentDto.getContent(),commentDto.getImageId(),principalDetails.getId());
             return new ResponseEntity<>(new ResponseDto<>(comment), HttpStatus.CREATED);
       }
+      @DeleteMapping("/api/comment/{commentId}")
+      public ResponseEntity<?> deleteComment(
+                  @PathVariable int commentId){
+            commentService.deleteComment(commentId);
+            return new ResponseEntity<>(new ResponseDto<>(), HttpStatus.OK);
+      }
+
+
 
 
 }
