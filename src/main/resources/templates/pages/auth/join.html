@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+        layout:decorate="~{../layouts/default}"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<div layout:fragment="content" >
+        <div class="container">
+                <main class="loginMain">
+                        <!--회원가입섹션-->
+                        <section class="login">
+                                <article class="login__form__container">
+
+                                        <!--회원가입 폼-->
+                                        <div class="login__form">
+                                                <!--로고-->
+                                                <h1><img src="/images/logo.jpg" alt=""></h1>
+                                                <!--로고end-->
+
+                                                <!--회원가입 인풋-->
+                                                <form class="login__input">
+                                                        <input type="text" name="username" placeholder="아이디" required="required" style="margin-bottom:0px;" id="username"/>
+                                                        <input type="hidden" value="false" id="usernameChecked">
+                                                        <button
+                                                                type="button"
+                                                                id="usernameDupCheckBtn"
+                                                                class="btn"
+                                                                data-mdb-ripple-color="dark"
+                                                                style="margin-top:0px; margin-bottom: 15px"
+                                                        >
+                                                                아이디 중복확인
+                                                        </button>
+                                                        <input type="password" name="password1" placeholder="비밀번호" required="required" id="password1"/>
+                                                        <input type="password" name="password2" placeholder="비밀번호 재입력" required="required" id="password2"/>
+                                                        <div class="input-container">
+                                                                <input type="email" name="email" placeholder="이메일" required="required" style="margin-bottom:0px;" id="email"/>
+                                                                <input type="hidden" value="false" id="emailChecked">
+                                                                <button
+                                                                        type="button"
+                                                                        id="emailDupCheckBtn"
+                                                                        class="btn"
+                                                                        data-mdb-ripple-color="dark"
+                                                                        style="margin-top:0px; margin-bottom: 15px"
+                                                                >
+                                                                        이메일 중복확인
+                                                                </button>
+                                                        </div>
+                                                        <input type="text" name="name" placeholder="이름" required="required" id="name" />
+                                                        <button id="signupBtn" type="button">가입</button>
+                                                </form>
+                                                <!--회원가입 인풋end-->
+                                        </div>
+                                        <!--회원가입 폼end-->
+
+                                        <!--계정이 있으신가요?-->
+                                        <div class="login__register">
+                                                <span>계정이 있으신가요?</span>
+                                                <a href="/auth/signin">로그인</a>
+                                        </div>
+                                        <!--계정이 있으신가요?end-->
+
+                                </article>
+                        </section>
+                </main>
+        </div>
+        <script src="/js/join.js"></script>
+</div>
+</html>
