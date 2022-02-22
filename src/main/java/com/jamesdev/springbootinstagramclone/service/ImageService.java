@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,6 +27,10 @@ public class ImageService {
 
       @Value("${file.path}")
       private String uploadFolder;
+
+
+      private final AmazonS3Uploader amazonS3Uploader;
+
 
       @Transactional(readOnly = true)
       public Page<Image> getStory(int principalId, Pageable pageable){
@@ -60,6 +65,12 @@ public class ImageService {
             }
             Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
             imageRepository.save(image);
+      }
+
+
+      @Transactional(readOnly = true)
+      public List<Image> getPopularImages(){
+            return imageRepository.popularImages();
       }
 
 }
