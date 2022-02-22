@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html
+        layout:decorate="~{../layouts/default}"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<div layout:fragment="content">
+        <div class="popular">
+                <div class="exploreContainer">
+
+                        <!--인기게시글 갤러리(GRID배치)-->
+                        <div class="popular-gallery">
+
+
+                                <tr th:each="image : ${images}">
+                                        <div class="p-img-box">
+                                                <a th:href="@{/user/{imageUserId}(imageUserId=${image.user.id})}">
+                                                        <img th:src="@{{imagePostImageUrl}(imagePostImageUrl=${image.postImageUrl})}"/>
+                                                </a>
+                                        </div>
+                                </tr>
+
+
+
+                                <!--                                <c:forEach var="image" items="${images}">-->
+                                <!--                                        <div class="p-img-box">-->
+                                <!--                                                <a href="/user/${image.user.id}"> <img src="/upload/${image.postImageUrl}" />-->
+                                <!--                                                </a>-->
+                                <!--                                        </div>-->
+                                <!--                                </c:forEach>-->
+
+                        </div>
+
+                </div>
+        </div>
+
+</div>
+</html>

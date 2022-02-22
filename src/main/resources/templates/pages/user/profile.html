@@ -74,11 +74,7 @@
 
                                         <tr th:each="image : ${dto.user.images}">
                                                 <div class="img-box">
-<<<<<<< HEAD
-                                                        <a href=""> <img th:src="@{/upload/{postImageUrl}(postImageUrl=${image.postImageUrl})}"/>
-=======
                                                         <a href=""> <img th:src="@{{postImageUrl}(postImageUrl=${image.postImageUrl})}"/>
->>>>>>> feature/amazonS3
                                                         </a>
                                                         <div class="comment">
                                                                 <a href="#" class=""> <i class="fas fa-heart"></i><span th:text="${image.likeCount}"></span>

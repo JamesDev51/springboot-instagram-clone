@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,11 +28,8 @@ public class ImageService {
       @Value("${file.path}")
       private String uploadFolder;
 
-<<<<<<< HEAD
-=======
       private final AmazonS3Uploader amazonS3Uploader;
 
->>>>>>> feature/amazonS3
       @Transactional(readOnly = true)
       public Page<Image> getStory(int principalId, Pageable pageable){
             Page<Image> images = imageRepository.story(principalId, pageable);
@@ -50,7 +48,7 @@ public class ImageService {
       @Transactional
       public void uploadImage(ImageUploadDto imageUploadDto, PrincipalDetails principalDetails){
 
-<<<<<<< HEAD
+
             UUID uuid = UUID.randomUUID();
             String imageFileName = uuid + "_"+imageUploadDto.getFile().getOriginalFilename();
             System.out.println("이미지 파일 이름 : "+imageFileName);
@@ -65,24 +63,30 @@ public class ImageService {
                   e.printStackTrace();
             }
             Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
-=======
+
 //            UUID uuid = UUID.randomUUID();
 //            String imageFileName = uuid + "_"+imageUploadDto.getFile().getOriginalFilename();
 //            System.out.println("이미지 파일 이름 : "+imageFileName);
 //
 //            Path imageFilePath = Paths.get(uploadFolder+imageFileName);
-            String postImageUrl = amazonS3Uploader.uploadImage(imageUploadDto.getFile());
-            User user= principalDetails.getUser();
-            System.out.println("user : "+user);
+//            String postImageUrl = amazonS3Uploader.uploadImage(imageUploadDto.getFile());
+//            User user= principalDetails.getUser();
+//            System.out.println("user : "+user);
 
 //            try {
 //                  Files.write(imageFilePath,imageUploadDto.getFile().getBytes());
 //            } catch (IOException e) {
 //                  e.printStackTrace();
 //            }
-            Image image = imageUploadDto.toEntity(postImageUrl,principalDetails.getUser());
->>>>>>> feature/amazonS3
+//            Image image = imageUploadDto.toEntity(postImageUrl,principalDetails.getUser());
+
             imageRepository.save(image);
       }
+
+      @Transactional(readOnly = true)
+      public List<Image> getPopularImages(){
+            return imageRepository.popularImages();
+      }
+
 
 }

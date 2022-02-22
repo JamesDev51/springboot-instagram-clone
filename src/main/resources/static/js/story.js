@@ -33,11 +33,7 @@ function getStoryItem(image) {
 \t\t\t\t\t<div>${image.user.username}</div>
 \t\t\t\t</div>
 \t\t\t\t<div class="sl__item__img">
-<<<<<<< HEAD
-\t\t\t\t\t<img src="/upload/${image.postImageUrl}" />
-=======
 \t\t\t\t\t<img src="${image.postImageUrl}" />
->>>>>>> feature/amazonS3
 \t\t\t\t</div>
 \t\t\t\t<div class="sl__item__contents">
 \t\t\t\t\t<div class="sl__item__contents__icon">
