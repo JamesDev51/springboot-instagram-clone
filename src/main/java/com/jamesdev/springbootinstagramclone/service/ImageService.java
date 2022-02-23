@@ -50,20 +50,8 @@ public class ImageService {
       @Transactional
       public void uploadImage(ImageUploadDto imageUploadDto, PrincipalDetails principalDetails){
 
-            UUID uuid = UUID.randomUUID();
-            String imageFileName = uuid + "_"+imageUploadDto.getFile().getOriginalFilename();
-            System.out.println("이미지 파일 이름 : "+imageFileName);
-
-            Path imageFilePath = Paths.get(uploadFolder+imageFileName);
-            User user= principalDetails.getUser();
-            System.out.println("user : "+user);
-
-            try {
-                  Files.write(imageFilePath,imageUploadDto.getFile().getBytes());
-            } catch (IOException e) {
-                  e.printStackTrace();
-            }
-            Image image = imageUploadDto.toEntity(imageFileName,principalDetails.getUser());
+           String fileUrl= amazonS3Uploader.uploadImage(imageUploadDto.getFile());
+            Image image = imageUploadDto.toEntity(fileUrl,principalDetails.getUser());
             imageRepository.save(image);
       }
 
