@@ -18,7 +18,7 @@ spring:
     cache: false
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3305/photogram?serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://springboot-webservice3.c8fut6pj2ay8.ap-northeast-2.rds.amazonaws.com:3306/photogram?serverTimezone=Asia/Seoul
     username: james
     password: jms990501
 
